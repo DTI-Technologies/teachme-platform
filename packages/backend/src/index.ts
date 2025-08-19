@@ -12,10 +12,21 @@ dotenv.config();
 const app = express();
 const PORT = parseInt(process.env.PORT || '3001', 10);
 
-// Initialize OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Initialize OpenAI (optional)
+let openai: OpenAI | null = null;
+try {
+  if (process.env.OPENAI_API_KEY) {
+    openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+    console.log('✅ OpenAI initialized successfully');
+  } else {
+    console.log('⚠️ OpenAI API key not found - AI features will be disabled');
+  }
+} catch (error) {
+  console.error('❌ OpenAI initialization failed:', error);
+  console.log('🔄 Continuing without AI features...');
+}
 
 // Middleware
 app.use(cors());
@@ -153,6 +164,14 @@ app.post('/api/auth/register', async (req, res) => {
 // AI Tutor endpoint
 app.post('/api/ai/chat', async (req, res) => {
   try {
+    // Check if OpenAI is available
+    if (!openai) {
+      return res.status(503).json({
+        success: false,
+        error: { message: 'AI features are currently unavailable - OpenAI API key not configured' }
+      });
+    }
+
     const { message, subject, userId } = req.body;
 
     // Create educational system prompt based on subject
