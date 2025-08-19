@@ -6,8 +6,8 @@ import OpenAI from 'openai';
 import dotenv from 'dotenv';
 import { createUser, findUserByEmail, verifyPassword, awardXP, checkAndAwardAchievements, updateStreak, getLeaderboard, prisma } from './lib/database';
 
-// Load environment variables from root .env file
-dotenv.config({ path: '../../.env' });
+// Load environment variables
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -21,12 +21,18 @@ const openai = new OpenAI({
 app.use(cors());
 app.use(express.json());
 
-// Database connection check
-prisma.$connect().then(() => {
-  console.log('✅ Database connected successfully');
-}).catch((error) => {
-  console.error('❌ Database connection failed:', error);
-});
+// Database connection check with retry
+async function connectDatabase() {
+  try {
+    await prisma.$connect();
+    console.log('✅ Database connected successfully');
+  } catch (error) {
+    console.error('❌ Database connection failed:', error);
+    console.log('🔄 Continuing without database connection...');
+  }
+}
+
+connectDatabase();
 
 // Auth routes
 app.post('/api/auth/login', async (req, res) => {
@@ -2179,7 +2185,22 @@ app.get('/api/health', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Backend server running on port ${PORT}`);
   console.log(`📍 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
+  console.log(`🗄️ Database URL configured: ${process.env.DATABASE_URL ? 'Yes' : 'No'}`);
+});
+
+server.on('error', (error) => {
+  console.error('❌ Server error:', error);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('🛑 SIGTERM received, shutting down gracefully');
+  server.close(() => {
+    console.log('✅ Server closed');
+    process.exit(0);
+  });
 });
