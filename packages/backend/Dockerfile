@@ -27,5 +27,5 @@ EXPOSE 3001
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:3001/api/health || exit 1
 
-# Start the application with ts-node
-CMD ["npx", "ts-node", "src/index.ts"]
+# Start the application with startup script
+CMD ["node", "start.js"]
