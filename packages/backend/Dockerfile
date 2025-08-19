@@ -20,5 +20,5 @@ RUN npx prisma generate
 # Expose port
 EXPOSE 3001
 
-# Start the simple server for testing
-CMD ["node", "simple.js"]
+# Start the full backend application
+CMD ["node", "start.js"]
