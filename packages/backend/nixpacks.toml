@@ -2,10 +2,13 @@
 nixPkgs = ["nodejs_22", "npm-9_x", "openssl"]
 
 [phases.install]
-cmds = ["npm install"]
+cmds = ["npm install --production=false"]
 
 [phases.build]
 cmds = ["npm run build"]
 
 [start]
 cmd = "npm start"
+
+[variables]
+NPM_CONFIG_PRODUCTION = "false"
