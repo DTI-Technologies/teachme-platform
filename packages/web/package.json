@@ -45,7 +45,9 @@
     "react-beautiful-dnd": "^13.1.1",
     "react-markdown": "^9.0.0",
     "remark-gfm": "^4.0.0",
-    "react-syntax-highlighter": "^15.5.0"
+    "react-syntax-highlighter": "^15.5.0",
+    "autoprefixer": "^10.4.15",
+    "postcss": "^8.4.29"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
@@ -61,8 +63,6 @@
     "jest-environment-jsdom": "^29.6.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/jest-dom": "^6.1.0",
-    "autoprefixer": "^10.4.15",
-    "postcss": "^8.4.29",
     "rimraf": "^5.0.0"
   },
   "jest": {
