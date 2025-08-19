@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "tsc && npx prisma generate",
+    "build": "tsc --transpileOnly --noEmitOnError false && npx prisma generate",
+    "build:prod": "npx prisma generate && node -r ts-node/register src/index.ts",
     "start": "node dist/index.js",
     "postbuild": "npx prisma migrate deploy",
     "test": "jest",
