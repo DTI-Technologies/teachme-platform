@@ -70,5 +70,8 @@
     "openai"
   ],
   "author": "DTI Technologies",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@railway/cli": "^4.6.3"
+  }
 }
