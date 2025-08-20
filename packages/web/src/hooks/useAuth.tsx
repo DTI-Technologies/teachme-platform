@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { User, UserRole } from '@teachme/shared';
+import { User, UserRole } from '@/types';
 
 interface AuthUser {
   id: string;

@@ -20,7 +20,7 @@ import {
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
-import { UserRole } from '@teachme/shared';
+import { UserRole } from '@/types';
 
 const registerSchema = z.object({
   firstName: z.string().min(1, 'First name is required').max(50, 'First name too long'),
