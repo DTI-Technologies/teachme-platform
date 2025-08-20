@@ -37,7 +37,7 @@ export default function ClassDetailPage() {
 
   useEffect(() => {
     if (params.id) {
-      fetchClassDetails(params.id as string);
+      fetchClassDetails(params.id);
     }
   }, [params.id]);
 

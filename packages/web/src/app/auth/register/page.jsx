@@ -37,12 +37,12 @@ const registerSchema = z.object({
   path: ["confirmPassword"],
 });
 
-type RegisterFormData = z.infer<typeof registerSchema>;
+// JavaScript doesn't need type definitions
 
 const roleOptions = [
-  { value: 'student' as const, label: 'Student', description: 'I want to learn and explore' },
-  { value: 'teacher' as const, label: 'Teacher', description: 'I want to teach and create lessons' },
-  { value: 'parent' as const, label: 'Parent', description: 'I want to monitor my child\'s progress' },
+  { value: 'student', label: 'Student', description: 'I want to learn and explore' },
+  { value: 'teacher', label: 'Teacher', description: 'I want to teach and create lessons' },
+  { value: 'parent', label: 'Parent', description: 'I want to monitor my child\'s progress' },
 ];
 
 export default function RegisterPage() {

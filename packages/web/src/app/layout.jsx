@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+// JavaScript doesn't need type imports
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';

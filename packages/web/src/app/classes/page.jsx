@@ -22,27 +22,14 @@ import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import CreateClassModal from '@/components/classes/CreateClassModal';
 
-interface Class {
-  id: string;
-  name: string;
-  description: string;
-  subject: string;
-  gradeLevel: string;
-  studentCount: number;
-  lessonsAssigned: number;
-  quizzesAssigned: number;
-  averageProgress: number;
-  isActive: boolean;
-  createdAt: Date;
-  recentActivity: string;
-}
+// JavaScript doesn't need interface definitions
 
 export default function ClassesPage() {
   const { user } = useAuth();
-  const [classes, setClasses] = useState<Class[]>([]);
+  const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [selectedClass, setSelectedClass] = useState<Class | null>(null);
+  const [selectedClass, setSelectedClass] = useState(null);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   useEffect(() => {
