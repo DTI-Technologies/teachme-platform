@@ -1,42 +1,29 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "ES2020",
-    "lib": ["DOM", "DOM.Iterable", "ES6"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@teachme/shared/*": ["packages/shared/src/*"],
-      "@teachme/web/*": ["packages/web/src/*"],
-      "@teachme/mobile/*": ["packages/mobile/src/*"],
-      "@teachme/backend/*": ["packages/backend/src/*"],
-      "@teachme/ai-services/*": ["packages/ai-services/src/*"],
-      "@teachme/admin/*": ["packages/admin-dashboard/src/*"]
-    }
+      "@/types": ["src/types"],
+      "@/types/*": ["src/types/*"],
+      "@/components/*": ["src/components/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/lib/*": ["src/lib/*"],
+      "@/utils/*": ["src/utils/*"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
-    "packages/*/src/**/*",
-    "packages/*/types/**/*"
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "packages/*/dist",
-    "packages/*/build",
-    "packages/*/.next"
+    "node_modules"
   ]
 }
