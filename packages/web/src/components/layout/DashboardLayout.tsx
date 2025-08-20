@@ -26,7 +26,7 @@ import {
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/Button';
 import DatabaseStatus from '@/components/ui/DatabaseStatus';
-import { UserRole } from './types';
+import { UserRole } from '@/types';
 
 interface DashboardLayoutProps {
   children: ReactNode;
