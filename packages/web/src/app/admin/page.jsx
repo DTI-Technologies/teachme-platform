@@ -149,7 +149,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const getSeverityColor = (severity: string) => {
+  const getSeverityColor = (severity) => {
     switch (severity) {
       case 'info':
         return 'text-blue-600';

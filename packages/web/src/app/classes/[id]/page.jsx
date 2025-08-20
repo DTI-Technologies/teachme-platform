@@ -24,54 +24,14 @@ import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import Link from 'next/link';
 
-interface Student {
-  id: string;
-  name: string;
-  email: string;
-  avatar: string;
-  progress: number;
-  lastActive: Date;
-  lessonsCompleted: number;
-  quizzesCompleted: number;
-  averageScore: number;
-  status: 'active' | 'inactive' | 'struggling';
-}
+// JavaScript doesn't need interface definitions
 
-interface Assignment {
-  id: string;
-  title: string;
-  type: 'lesson' | 'quiz';
-  dueDate: Date;
-  completedBy: number;
-  totalStudents: number;
-  averageScore?: number;
-}
-
-interface ClassDetails {
-  id: string;
-  name: string;
-  description: string;
-  subject: string;
-  gradeLevel: string;
-  students: Student[];
-  assignments: Assignment[];
-  schedule: {
-    days: string[];
-    startTime: string;
-    endTime: string;
-  };
-  stats: {
-    totalStudents: number;
-    activeStudents: number;
-    averageProgress: number;
-    completionRate: number;
-  };
-}
+// JavaScript doesn't need interface definitions
 
 export default function ClassDetailPage() {
   const params = useParams();
   const { user } = useAuth();
-  const [classData, setClassData] = useState<ClassDetails | null>(null);
+  const [classData, setClassData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('students');
 

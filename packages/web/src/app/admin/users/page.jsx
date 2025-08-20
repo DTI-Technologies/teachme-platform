@@ -117,7 +117,7 @@ export default function AdminUsersPage() {
     }
   };
 
-  const getRoleColor = (role: UserRole) => {
+  const getRoleColor = (role) => {
     switch (role) {
       case UserRole.TEACHER:
         return 'text-blue-700 bg-blue-100 border-blue-200';

@@ -39,7 +39,7 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async (data) => {
     setIsLoading(true);
     try {
       await login(data.email, data.password);

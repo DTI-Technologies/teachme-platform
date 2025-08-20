@@ -30,7 +30,7 @@ const registerSchema = z.object({
     .min(8, 'Password must be at least 8 characters')
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, 'Password must contain uppercase, lowercase, and number'),
   confirmPassword: z.string(),
-  role: z.enum(['student', 'teacher', 'parent'] as const),
+  role: z.enum(['student', 'teacher', 'parent']),
   agreeToTerms: z.boolean().refine(val => val === true, 'You must agree to the terms'),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
