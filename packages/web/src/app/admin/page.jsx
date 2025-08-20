@@ -45,7 +45,7 @@ export default function AdminDashboard() {
     totalQuizzes: 0,
     systemHealth: 'excellent'
   });
-  const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
+  const [recentActivity, setRecentActivity] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Check if user has admin access

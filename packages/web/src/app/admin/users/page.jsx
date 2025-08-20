@@ -23,10 +23,10 @@ import { UserRole } from '@/types';
 
 export default function AdminUsersPage() {
   const { user } = useAuth();
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [roleFilter, setRoleFilter] = useState<string>('all');
+  const [roleFilter, setRoleFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
   useEffect(() => {

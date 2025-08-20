@@ -48,7 +48,7 @@ export default function AnalyticsPage() {
     }
   };
 
-  const formatTime = (minutes: number) => {
+  const formatTime = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     if (hours > 0) {

@@ -12,10 +12,6 @@ import {
 import { Button } from './Button';
 import { Card } from './Card';
 
-interface DatabaseStatusProps {
-  showBanner?: boolean;
-}
-
 export default function DatabaseStatus({ showBanner = true }: DatabaseStatusProps) {
   const [dbStatus, setDbStatus] = useState<'checking' | 'connected' | 'disconnected'>('checking');
   const [showSetupGuide, setShowSetupGuide] = useState(false);

@@ -20,7 +20,7 @@ const forgotPasswordSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
 });
 
-type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
+// JavaScript doesn't need type definitions
 
 export default function ForgotPasswordPage() {
   const [isLoading, setIsLoading] = useState(false);
