@@ -20,7 +20,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import { UserRole } from '@/types';
+import { UserRole } from './types';
 
 const studentStats = [
   {
