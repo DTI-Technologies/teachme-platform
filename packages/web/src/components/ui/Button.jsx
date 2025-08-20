@@ -1,18 +1,10 @@
 'use client';
 
-import { forwardRef, ButtonHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  loading?: boolean;
-  fullWidth?: boolean;
-  animated?: boolean;
-}
-
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = forwardRef(
   (
     {
       className,

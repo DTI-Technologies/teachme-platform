@@ -1,17 +1,10 @@
 'use client';
 
-import { forwardRef, HTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 
-export interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'elevated' | 'outlined' | 'glass';
-  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
-  hover?: boolean;
-  animated?: boolean;
-}
-
-const Card = forwardRef<HTMLDivElement, CardProps>(
+const Card = forwardRef(
   (
     {
       className,
