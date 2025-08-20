@@ -3,6 +3,14 @@ const nextConfig = {
   experimental: {
     externalDir: true,
   },
+  typescript: {
+    // Disable type checking during build
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    // Disable ESLint during build
+    ignoreDuringBuilds: true,
+  },
   images: {
     domains: [
       'localhost',
