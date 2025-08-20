@@ -77,7 +77,7 @@ export default function ClassesPage() {
     }
   };
 
-  const getMockClasses = (): Class[] => [
+  const getMockClasses = () => [
     {
       id: '1',
       name: 'Advanced Mathematics',

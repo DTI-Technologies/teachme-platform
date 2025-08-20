@@ -6,7 +6,7 @@ import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'TeachMe - Smart Learning. Real Fun. Every Grade.',
   description: 'AI-powered educational platform for K-12 learning with personalized tutoring, lesson planning, and interactive experiences.',
   keywords: ['education', 'AI', 'K-12', 'learning', 'tutoring', 'lessons', 'students', 'teachers'],

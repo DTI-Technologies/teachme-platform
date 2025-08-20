@@ -41,7 +41,7 @@ export default function ClassDetailPage() {
     }
   }, [params.id]);
 
-  const fetchClassDetails = async (classId: string) => {
+  const fetchClassDetails = async (classId) => {
     try {
       setLoading(true);
       

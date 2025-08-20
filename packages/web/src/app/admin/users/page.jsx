@@ -155,7 +155,7 @@ export default function AdminUsersPage() {
     }
   };
 
-  const toggleUserStatus = async (userId: string) => {
+  const toggleUserStatus = async (userId) => {
     try {
       const response = await fetch(`/api/backend/admin/users/${userId}/toggle-status`, {
         method: 'PUT',

@@ -66,7 +66,7 @@ export default function RegisterPage() {
 
   const selectedRole = watch('role');
 
-  const onSubmit = async (data: RegisterFormData) => {
+  const onSubmit = async (data) => {
     setIsLoading(true);
     try {
       await registerUser({
