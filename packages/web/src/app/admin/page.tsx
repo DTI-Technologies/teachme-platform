@@ -20,7 +20,14 @@ import { useAuth } from '@/hooks/useAuth';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import { UserRole } from '@teachme/shared';
+// Define UserRole locally to avoid build issues
+enum UserRole {
+  STUDENT = 'student',
+  TEACHER = 'teacher',
+  PARENT = 'parent',
+  ADMIN = 'admin',
+  SUPER_ADMIN = 'super_admin',
+}
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
