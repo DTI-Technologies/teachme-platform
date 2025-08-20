@@ -134,7 +134,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const getHealthColor = (health: string) => {
+  const getHealthColor = (health) => {
     switch (health) {
       case 'excellent':
         return 'text-green-600 bg-green-100';

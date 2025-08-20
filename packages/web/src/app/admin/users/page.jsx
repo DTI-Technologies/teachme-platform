@@ -106,7 +106,7 @@ export default function AdminUsersPage() {
     return matchesSearch && matchesRole && matchesStatus;
   });
 
-  const getRoleIcon = (role: UserRole) => {
+  const getRoleIcon = (role) => {
     switch (role) {
       case UserRole.TEACHER:
         return <AcademicCapIcon className="h-5 w-5" />;

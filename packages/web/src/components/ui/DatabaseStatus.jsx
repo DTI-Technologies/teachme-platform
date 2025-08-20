@@ -12,8 +12,8 @@ import {
 import { Button } from './Button';
 import { Card } from './Card';
 
-export default function DatabaseStatus({ showBanner = true }: DatabaseStatusProps) {
-  const [dbStatus, setDbStatus] = useState<'checking' | 'connected' | 'disconnected'>('checking');
+export default function DatabaseStatus({ showBanner = true }) {
+  const [dbStatus, setDbStatus] = useState('checking');
   const [showSetupGuide, setShowSetupGuide] = useState(false);
   const [dismissed, setDismissed] = useState(false);
 

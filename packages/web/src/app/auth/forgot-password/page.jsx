@@ -35,7 +35,7 @@ export default function ForgotPasswordPage() {
     resolver: zodResolver(forgotPasswordSchema),
   });
 
-  const onSubmit = async (data: ForgotPasswordFormData) => {
+  const onSubmit = async (data) => {
     setIsLoading(true);
     try {
       // Simulate API call

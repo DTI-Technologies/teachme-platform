@@ -23,7 +23,7 @@ const loginSchema = z.object({
   password: z.string().min(8, 'Password must be at least 8 characters'),
 });
 
-type LoginFormData = z.infer<typeof loginSchema>;
+// JavaScript doesn't need type definitions
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
