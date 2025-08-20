@@ -21,17 +21,6 @@ import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { UserRole } from '@/types';
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-  school?: string;
-  isActive: boolean;
-  lastLogin: Date;
-  createdAt: Date;
-}
-
 export default function AdminUsersPage() {
   const { user } = useAuth();
   const [users, setUsers] = useState<User[]>([]);

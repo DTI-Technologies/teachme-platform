@@ -21,35 +21,16 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 // Define UserRole locally to avoid build issues
-enum UserRole {
-  STUDENT = 'student',
-  TEACHER = 'teacher',
-  PARENT = 'parent',
-  ADMIN = 'admin',
-  SUPER_ADMIN = 'super_admin',
-}
+const UserRole = {
+  STUDENT: 'student',
+  TEACHER: 'teacher',
+  PARENT: 'parent',
+  ADMIN: 'admin',
+  SUPER_ADMIN: 'super_admin',
+};
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
-interface AdminStats {
-  totalUsers: number;
-  totalTeachers: number;
-  totalStudents: number;
-  totalSchools: number;
-  activeUsers: number;
-  totalLessons: number;
-  totalQuizzes: number;
-  systemHealth: 'excellent' | 'good' | 'warning' | 'critical';
-}
-
-interface RecentActivity {
-  id: string;
-  type: 'user_registration' | 'school_created' | 'lesson_created' | 'system_alert';
-  title: string;
-  description: string;
-  timestamp: Date;
-  severity: 'info' | 'warning' | 'error';
-}
+// JavaScript doesn't need interface definitions
 
 export default function AdminDashboard() {
   const { user } = useAuth();

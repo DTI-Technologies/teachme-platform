@@ -11,9 +11,9 @@ export function useAuth() {
         id: '1',
         email: 'admin@teachme.com',
         name: 'Admin User',
-        role: 'ADMINISTRATOR' as const
+        role: 'ADMINISTRATOR'
       },
-      login: async (email: string, password: string) => true,
+      login: async (email, password) => true,
       logout: () => {},
       isLoading: false
     };

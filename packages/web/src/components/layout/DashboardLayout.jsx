@@ -66,7 +66,7 @@ const adminNavigation = [
   { name: 'Security', href: '/admin/security', icon: ShieldCheckIcon },
 ];
 
-export default function DashboardLayout({ children }: DashboardLayoutProps) {
+export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user, logout } = useAuth();
   const router = useRouter();

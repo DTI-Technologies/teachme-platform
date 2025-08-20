@@ -18,47 +18,9 @@ import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { UserRole } from '@/types';
 import Link from 'next/link';
-
-interface TeacherAnalytics {
-  overview: {
-    totalStudents: number;
-    totalLessons: number;
-    averageCompletion: number;
-    averageScore: number;
-    totalTimeSpent: number;
-    activeStudents: number;
-  };
-  lessonPerformance: Array<{
-    lessonId: string;
-    title: string;
-    studentsEnrolled: number;
-    studentsCompleted: number;
-    averageScore: number;
-    averageTime: number;
-    completionRate: number;
-  }>;
-  studentProgress: Array<{
-    studentId: string;
-    studentName: string;
-    lessonsCompleted: number;
-    averageScore: number;
-    timeSpent: number;
-    lastActive: Date;
-  }>;
-  strugglingStudents: Array<{
-    studentId: string;
-    studentName: string;
-    lessonId: string;
-    lessonTitle: string;
-    timeStuck: number;
-    attempts: number;
-    needsHelp: boolean;
-  }>;
-}
-
 export default function AnalyticsPage() {
   const { user } = useAuth();
-  const [analytics, setAnalytics] = useState<TeacherAnalytics | null>(null);
+  const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
 
