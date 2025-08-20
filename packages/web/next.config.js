@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-
+  experimental: {
+    externalDir: true,
+  },
   images: {
     domains: [
       'localhost',
@@ -34,6 +36,13 @@ const nextConfig = {
         tls: false,
       };
     }
+
+    // Add path aliases
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': require('path').resolve(__dirname, 'src'),
+    };
+
     return config;
   },
 };
