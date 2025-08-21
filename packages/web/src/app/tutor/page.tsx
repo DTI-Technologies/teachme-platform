@@ -17,21 +17,21 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 
-interface Message {
-  id: string;
-  content: string;
-  sender: 'user' | 'ai';
-  timestamp: Date;
-  type?: 'text' | 'hint' | 'explanation' | 'question';
-}
+// interface Message {
+//   id: string;
+//   content: string;
+//   sender: 'user' | 'ai';
+//   timestamp: Date;
+//   type?: 'text' | 'hint' | 'explanation' | 'question';
+// }
 
-interface Subject {
-  id: string;
-  name: string;
-  icon: any;
-  color: string;
-  bgColor: string;
-}
+// interface Subject {
+//   id: string;
+//   name: string;
+//   icon: any;
+//   color: string;
+//   bgColor: string;
+// }
 
 const subjects: Subject[] = [
   {
@@ -99,10 +99,10 @@ export default function TutorPage() {
     scrollToBottom();
   }, [messages]);
 
-  const sendMessage = async (content: string) => {
+  const sendMessage = async (content) => {
     if (!content.trim()) return;
 
-    const userMessage: Message = {
+    const userMessage = {
       id: Date.now().toString(),
       content: content.trim(),
       sender: 'user',
@@ -131,7 +131,7 @@ export default function TutorPage() {
       const data = await response.json();
 
       if (data.success) {
-        const aiResponse: Message = {
+        const aiResponse = {
           id: (Date.now() + 1).toString(),
           content: data.data.response,
           sender: 'ai',
@@ -144,7 +144,7 @@ export default function TutorPage() {
       }
     } catch (error) {
       console.error('Error sending message:', error);
-      const errorResponse: Message = {
+      const errorResponse = {
         id: (Date.now() + 1).toString(),
         content: "I'm sorry, I'm having trouble connecting right now. Please try again in a moment.",
         sender: 'ai',
@@ -166,7 +166,7 @@ export default function TutorPage() {
     }
   };
 
-  const handleQuickPrompt = (prompt: string) => {
+  const handleQuickPrompt = (prompt) => {
     sendMessage(prompt);
   };
 

@@ -21,12 +21,12 @@ import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { UserRole } from '@/types';
 
-interface SettingsSection {
-  id: string;
-  name: string;
-  icon: any;
-  description: string;
-}
+// interface SettingsSection {
+//   id: string;
+//   name: string;
+//   icon: any;
+//   description: string;
+// }
 
 const settingsSections: SettingsSection[] = [
   {

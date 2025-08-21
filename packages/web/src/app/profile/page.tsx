@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   UserIcon,
-  TrophyIcon,
+  TrophyIcon as TrophyOutlineIcon,
   FireIcon,
-  StarIcon,
+  StarIcon as StarOutlineIcon,
   ChartBarIcon,
   CogIcon,
   PencilIcon,
@@ -14,78 +14,78 @@ import {
   ClockIcon,
   AcademicCapIcon
 } from '@heroicons/react/24/outline';
-import { StarIcon as StarIconSolid, TrophyIcon as TrophyIconSolid } from '@heroicons/react/24/solid';
+import { StarIcon, TrophyIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '@/hooks/useAuth';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 
-interface StudentProfile {
-  id: string;
-  displayName: string;
-  level: number;
-  totalXP: number;
-  currentLevelXP: number;
-  nextLevelXP: number;
-  streak: number;
-  longestStreak: number;
-  badges: Badge[];
-  achievements: Achievement[];
-  stats: StudentStats;
-  avatar: Avatar;
-}
+// interface StudentProfile {
+//   id: string;
+//   displayName: string;
+//   level: number;
+//   totalXP: number;
+//   currentLevelXP: number;
+//   nextLevelXP: number;
+//   streak: number;
+//   longestStreak: number;
+//   badges: Badge[];
+//   achievements: Achievement[];
+//   stats: StudentStats;
+//   avatar: Avatar;
+// }
 
-interface Badge {
-  id: string;
-  name: string;
-  description: string;
-  icon: string;
-  color: string;
-  category: string;
-  rarity: string;
-  earnedAt: Date;
-}
+// interface Badge {
+//   id: string;
+//   name: string;
+//   description: string;
+//   icon: string;
+//   color: string;
+//   category: string;
+//   rarity: string;
+//   earnedAt: Date;
+// }
 
-interface Achievement {
-  id: string;
-  name: string;
-  description: string;
-  icon: string;
-  category: string;
-  progress: {
-    current: number;
-    target: number;
-    percentage: number;
-  };
-  earnedAt?: Date;
-}
+// interface Achievement {
+//   id: string;
+//   name: string;
+//   description: string;
+//   icon: string;
+//   category: string;
+//   progress: {
+//     current: number;
+//     target: number;
+//     percentage: number;
+//   };
+//   earnedAt?: Date;
+// }
 
-interface StudentStats {
-  totalLessonsCompleted: number;
-  totalQuizzesCompleted: number;
-  totalTimeSpent: number;
-  averageScore: number;
-  perfectScores: number;
-  subjectStats: SubjectStats[];
-}
+// interface StudentStats {
+//   totalLessonsCompleted: number;
+//   totalQuizzesCompleted: number;
+//   totalTimeSpent: number;
+//   averageScore: number;
+//   perfectScores: number;
+//   subjectStats: SubjectStats[];
+// }
 
-interface SubjectStats {
-  subject: string;
-  lessonsCompleted: number;
-  averageScore: number;
-  timeSpent: number;
-  level: number;
-  xp: number;
-}
+// interface SubjectStats {
+//   subject: string;
+//   lessonsCompleted: number;
+//   averageScore: number;
+//   timeSpent: number;
+//   level: number;
+//   xp: number;
+// }
 
-interface Avatar {
-  type: string;
-  skinTone: string;
-  hairStyle: string;
-  hairColor: string;
-  outfit: string;
-  accessories: string[];
-}
+// interface Avatar {
+//   type: string;
+//   skinTone: string;
+//   hairStyle: string;
+//   hairColor: string;
+//   outfit: string;
+//   accessories: string[];
+// }
 
 export default function ProfilePage() {
   const { user } = useAuth();
@@ -136,7 +136,7 @@ export default function ProfilePage() {
     }
   };
 
-  const getDefaultProfile = (user: any): StudentProfile => ({
+  const getDefaultProfile = (user) => ({
     id: user?.id || '1',
     displayName: user?.name || 'Student',
     level: 1,
@@ -170,7 +170,7 @@ export default function ProfilePage() {
     return (profile.currentLevelXP / profile.nextLevelXP) * 100;
   };
 
-  const getBadgeColor = (color: string) => {
+  const getBadgeColor = (color) => {
     switch (color) {
       case 'BRONZE':
         return 'text-orange-600 bg-orange-100 border-orange-300';
@@ -187,7 +187,7 @@ export default function ProfilePage() {
     }
   };
 
-  const getRarityColor = (rarity: string) => {
+  const getRarityColor = (rarity) => {
     switch (rarity) {
       case 'COMMON':
         return 'border-gray-300';
@@ -204,7 +204,7 @@ export default function ProfilePage() {
     }
   };
 
-  const formatTime = (minutes: number) => {
+  const formatTime = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     if (hours > 0) {

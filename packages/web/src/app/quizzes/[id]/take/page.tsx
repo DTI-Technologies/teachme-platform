@@ -17,35 +17,39 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 
-interface Question {
-  id: string;
-  type: 'MULTIPLE_CHOICE' | 'TRUE_FALSE' | 'SHORT_ANSWER' | 'FILL_IN_BLANK';
-  question: string;
-  options?: string[];
-  points: number;
-  order: number;
-}
+// JavaScript doesn't need interface definitions - using JSDoc for documentation
 
-interface Quiz {
-  id: string;
-  title: string;
-  description: string;
-  questions: Question[];
-  timeLimit?: number;
-  passingScore: number;
-  settings: {
-    showCorrectAnswers: boolean;
-    showExplanations: boolean;
-    allowReview: boolean;
-    randomizeQuestions: boolean;
-  };
-}
+/**
+ * @typedef {Object} Question
+ * @property {string} id
+ * @property {'MULTIPLE_CHOICE'|'TRUE_FALSE'|'SHORT_ANSWER'|'FILL_IN_BLANK'} type
+ * @property {string} question
+ * @property {string[]} [options]
+ * @property {number} points
+ * @property {number} order
+ */
 
-interface Answer {
-  questionId: string;
-  answer: string | string[];
-  timeSpent: number;
-}
+/**
+ * @typedef {Object} Quiz
+ * @property {string} id
+ * @property {string} title
+ * @property {string} description
+ * @property {Question[]} questions
+ * @property {number} [timeLimit]
+ * @property {number} passingScore
+ * @property {Object} settings
+ * @property {boolean} settings.showCorrectAnswers
+ * @property {boolean} settings.showExplanations
+ * @property {boolean} settings.allowReview
+ * @property {boolean} settings.randomizeQuestions
+ */
+
+/**
+ * @typedef {Object} Answer
+ * @property {string} questionId
+ * @property {string|string[]} answer
+ * @property {number} timeSpent
+ */
 
 export default function TakeQuizPage() {
   const params = useParams();
@@ -57,12 +61,12 @@ export default function TakeQuizPage() {
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [quizStartTime, setQuizStartTime] = useState<Date | null>(null);
-  const [questionStartTime, setQuestionStartTime] = useState<Date>(new Date());
+  const [questionStartTime, setQuestionStartTime] = useState(new Date());
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showReview, setShowReview] = useState(false);
   const [flaggedQuestions, setFlaggedQuestions] = useState<Set<string>>(new Set());
 
-  const quizId = params.id as string;
+  const quizId = params.id;
 
   useEffect(() => {
     if (quizId) {
@@ -90,7 +94,7 @@ export default function TakeQuizPage() {
   const fetchQuiz = async () => {
     try {
       // Mock quiz data
-      const mockQuiz: Quiz = {
+      const mockQuiz = {
         id: quizId,
         title: 'Fractions Fundamentals',
         description: 'Test your understanding of basic fraction concepts and operations.',
@@ -188,7 +192,7 @@ export default function TakeQuizPage() {
     }
   };
 
-  const handleFlagQuestion = (questionId: string) => {
+  const handleFlagQuestion = (questionId) => {
     setFlaggedQuestions(prev => {
       const newSet = new Set(prev);
       if (newSet.has(questionId)) {
@@ -220,7 +224,7 @@ export default function TakeQuizPage() {
     }
   };
 
-  const formatTime = (seconds: number) => {
+  const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
@@ -442,7 +446,7 @@ export default function TakeQuizPage() {
 
                   {(currentQuestion.type === 'SHORT_ANSWER' || currentQuestion.type === 'FILL_IN_BLANK') && (
                     <textarea
-                      value={answers[currentQuestion.id]?.answer as string || ''}
+                      value={answers[currentQuestion.id]?.answer || ''}
                       onChange={(e) => handleAnswerChange(currentQuestion.id, e.target.value)}
                       placeholder="Enter your answer..."
                       rows={3}

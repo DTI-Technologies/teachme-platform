@@ -35,7 +35,7 @@ import { useRouter } from 'next/navigation';
 export default function AdminDashboard() {
   const { user } = useAuth();
   const router = useRouter();
-  const [stats, setStats] = useState<AdminStats>({
+  const [stats, setStats] = useState({
     totalUsers: 0,
     totalTeachers: 0,
     totalStudents: 0,
@@ -105,7 +105,7 @@ export default function AdminDashboard() {
             id: '1',
             type: 'user_registration',
             title: 'New Teacher Registration',
-            description: 'Sarah Johnson registered as a teacher at Lincoln Elementary',
+            description: 'Sarah Johnson registered teacher at Lincoln Elementary',
             timestamp: new Date('2024-01-22T10:30:00'),
             severity: 'info'
           },

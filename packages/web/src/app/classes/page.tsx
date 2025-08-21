@@ -122,7 +122,7 @@ export default function ClassesPage() {
     }
   ];
 
-  const handleCreateClass = async (classData: any) => {
+  const handleCreateClass = async (classData) => {
     try {
       console.log('Creating class:', classData);
 
@@ -163,7 +163,7 @@ export default function ClassesPage() {
     }
   };
 
-  const getSubjectIcon = (subject: string) => {
+  const getSubjectIcon = (subject) => {
     switch (subject) {
       case 'MATHEMATICS':
         return '🧮';
@@ -178,13 +178,13 @@ export default function ClassesPage() {
     }
   };
 
-  const getProgressColor = (progress: number) => {
+  const getProgressColor = (progress) => {
     if (progress >= 80) return 'text-green-600 bg-green-100';
     if (progress >= 60) return 'text-yellow-600 bg-yellow-100';
     return 'text-red-600 bg-red-100';
   };
 
-  const formatGradeLevel = (gradeLevel: string) => {
+  const formatGradeLevel = (gradeLevel) => {
     if (gradeLevel === 'KINDERGARTEN') return 'Kindergarten';
     return gradeLevel.replace('GRADE_', 'Grade ');
   };

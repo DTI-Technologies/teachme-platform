@@ -57,7 +57,7 @@ export default function RegisterPage() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<RegisterFormData>({
+  } = useForm({
     resolver: zodResolver(registerSchema),
     defaultValues: {
       role: 'student',
@@ -74,7 +74,7 @@ export default function RegisterPage() {
         password: data.password,
         firstName: data.firstName,
         lastName: data.lastName,
-        role: data.role as UserRole,
+        role: data.role,
       });
       toast.success('Account created successfully! Welcome to TeachMe!');
       router.push('/dashboard');

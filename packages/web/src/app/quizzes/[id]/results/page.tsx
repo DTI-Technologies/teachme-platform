@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
-  CheckCircleIcon,
-  XCircleIcon,
+  CheckCircleIcon as CheckCircleOutlineIcon,
+  XCircleIcon as XCircleOutlineIcon,
   TrophyIcon,
   ClockIcon,
   StarIcon,
@@ -13,38 +13,38 @@ import {
   LightBulbIcon,
   BookOpenIcon
 } from '@heroicons/react/24/outline';
-import { CheckCircleIcon as CheckCircleIconSolid, XCircleIcon as XCircleIconSolid } from '@heroicons/react/24/solid';
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '@/hooks/useAuth';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import Link from 'next/link';
 
-interface QuestionResult {
-  questionId: string;
-  question: string;
-  studentAnswer: string;
-  correctAnswer: string;
-  isCorrect: boolean;
-  pointsEarned: number;
-  maxPoints: number;
-  explanation?: string;
-}
+// interface QuestionResult {
+//   questionId: string;
+//   question: string;
+//   studentAnswer: string;
+//   correctAnswer: string;
+//   isCorrect: boolean;
+//   pointsEarned: number;
+//   maxPoints: number;
+//   explanation?: string;
+// }
 
-interface QuizResult {
-  attemptId: string;
-  quizId: string;
-  quizTitle: string;
-  score: number;
-  maxScore: number;
-  percentage: number;
-  passed: boolean;
-  timeSpent: number;
-  submittedAt: Date;
-  questionResults: QuestionResult[];
-  feedback: string;
-  recommendations: string[];
-}
+// interface QuizResult {
+//   attemptId: string;
+//   quizId: string;
+//   quizTitle: string;
+//   score: number;
+//   maxScore: number;
+//   percentage: number;
+//   passed: boolean;
+//   timeSpent: number;
+//   submittedAt: Date;
+//   questionResults: QuestionResult[];
+//   feedback: string;
+//   recommendations: string[];
+// }
 
 export default function QuizResultsPage() {
   const params = useParams();
@@ -52,7 +52,7 @@ export default function QuizResultsPage() {
   const [results, setResults] = useState<QuizResult | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const quizId = params.id as string;
+  const quizId = params.id;
 
   useEffect(() => {
     if (quizId) {
@@ -65,7 +65,7 @@ export default function QuizResultsPage() {
       setLoading(true);
       
       // Mock results data
-      const mockResults: QuizResult = {
+      const mockResults = {
         attemptId: '1',
         quizId: quizId,
         quizTitle: 'Fractions Fundamentals',
@@ -143,20 +143,20 @@ export default function QuizResultsPage() {
     }
   };
 
-  const formatTime = (seconds: number) => {
+  const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}m ${remainingSeconds}s`;
   };
 
-  const getScoreColor = (percentage: number) => {
+  const getScoreColor = (percentage) => {
     if (percentage >= 90) return 'text-green-600';
     if (percentage >= 80) return 'text-blue-600';
     if (percentage >= 70) return 'text-yellow-600';
     return 'text-red-600';
   };
 
-  const getScoreBgColor = (percentage: number) => {
+  const getScoreBgColor = (percentage) => {
     if (percentage >= 90) return 'bg-green-100';
     if (percentage >= 80) return 'bg-blue-100';
     if (percentage >= 70) return 'bg-yellow-100';

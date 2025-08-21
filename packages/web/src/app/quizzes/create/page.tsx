@@ -20,27 +20,27 @@ import DashboardLayout from '@/components/layout/DashboardLayout';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-interface Question {
-  id: string;
-  type: 'MULTIPLE_CHOICE' | 'TRUE_FALSE' | 'SHORT_ANSWER' | 'FILL_IN_BLANK';
-  question: string;
-  options?: string[];
-  correctAnswer: string | string[];
-  explanation?: string;
-  points: number;
-  timeLimit?: number;
-  order: number;
-}
+// interface Question {
+//   id: string;
+//   type: 'MULTIPLE_CHOICE' | 'TRUE_FALSE' | 'SHORT_ANSWER' | 'FILL_IN_BLANK';
+//   question: string;
+//   options?: string[];
+//   correctAnswer: string | string[];
+//   explanation?: string;
+//   points: number;
+//   timeLimit?: number;
+//   order: number;
+// }
 
-interface QuizSettings {
-  timeLimit?: number;
-  maxAttempts: number;
-  passingScore: number;
-  showCorrectAnswers: boolean;
-  showExplanations: boolean;
-  allowReview: boolean;
-  randomizeQuestions: boolean;
-}
+// interface QuizSettings {
+//   timeLimit?: number;
+//   maxAttempts: number;
+//   passingScore: number;
+//   showCorrectAnswers: boolean;
+//   showExplanations: boolean;
+//   allowReview: boolean;
+//   randomizeQuestions: boolean;
+// }
 
 const subjects = [
   'MATHEMATICS',
@@ -87,7 +87,7 @@ export default function CreateQuizPage() {
   });
 
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [settings, setSettings] = useState<QuizSettings>({
+  const [settings, setSettings] = useState({
     maxAttempts: 3,
     passingScore: 70,
     showCorrectAnswers: true,
@@ -99,10 +99,10 @@ export default function CreateQuizPage() {
   const [isGeneratingWithAI, setIsGeneratingWithAI] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  const addQuestion = (type: string) => {
-    const newQuestion: Question = {
+  const addQuestion = (type) => {
+    const newQuestion = {
       id: Date.now().toString(),
-      type: type as any,
+      type: type,
       question: '',
       options: type === 'MULTIPLE_CHOICE' ? ['', '', '', ''] : undefined,
       correctAnswer: type === 'TRUE_FALSE' ? 'true' : '',
@@ -128,7 +128,7 @@ export default function CreateQuizPage() {
     ));
   };
 
-  const removeQuestion = (id: string) => {
+  const removeQuestion = (id) => {
     setQuestions(questions.filter(q => q.id !== id));
   };
 
@@ -180,7 +180,7 @@ export default function CreateQuizPage() {
           }));
         }
 
-        alert(`Generated ${aiQuestions.length} questions! Review and edit as needed.`);
+        alert(`Generated ${aiQuestions.length} questions! Review and edit.`);
       } else {
         throw new Error(data.error?.message || 'Failed to generate questions');
       }
@@ -592,7 +592,7 @@ export default function CreateQuizPage() {
                             </label>
                             <input
                               type="text"
-                              value={question.correctAnswer as string}
+                              value={question.correctAnswer}
                               onChange={(e) => updateQuestion(question.id, 'correctAnswer', e.target.value)}
                               placeholder="Enter the correct answer..."
                               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"

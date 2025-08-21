@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
-  BookOpenIcon,
+  QuestionMarkCircleIcon,
   ClockIcon,
   AcademicCapIcon,
   StarIcon,
@@ -11,9 +11,10 @@ import {
   PlusIcon,
   MagnifyingGlassIcon,
   FunnelIcon,
-  ChevronRightIcon
+  ChevronRightIcon,
+  TrophyIcon,
+  CheckCircleIcon
 } from '@heroicons/react/24/outline';
-import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
 import { useAuth } from '@/hooks/useAuth';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -21,219 +22,55 @@ import DashboardLayout from '@/components/layout/DashboardLayout';
 import { UserRole } from '@/types';
 import Link from 'next/link';
 
-interface Lesson {
-  id: string;
-  title: string;
-  description: string;
-  subject: string;
-  gradeLevel: string;
-  duration: number;
-  difficulty: string;
-  objectives: string[];
-  tags: string[];
-  createdBy: string;
-  createdAt: Date;
-  updatedAt: Date;
-  isPublic: boolean;
-  thumbnailUrl?: string;
-}
+// interface Quiz {
+//   id: string;
+//   title: string;
+//   description: string;
+//   subject: string;
+//   gradeLevel: string;
+//   difficulty: string;
+//   questionCount: number;
+//   timeLimit?: number;
+//   passingScore: number;
+//   tags: string[];
+//   createdBy: string;
+//   createdAt: Date;
+//   isPublished: boolean;
+//   attempts?: number;
+//   bestScore?: number;
+//   completed?: boolean;
+// }
 
 const subjects = [
   'All Subjects',
-  'Mathematics',
-  'Science',
-  'English',
-  'History',
-  'Geography',
-  'Art'
+  'MATHEMATICS',
+  'SCIENCE',
+  'ENGLISH',
+  'HISTORY',
+  'GEOGRAPHY',
+  'ART'
 ];
 
 const gradeLevels = [
   'All Grades',
-  'KINDERGARTEN',
   'GRADE_1',
   'GRADE_2',
   'GRADE_3',
   'GRADE_4',
   'GRADE_5',
-  'GRADE_6',
-  'GRADE_7',
-  'GRADE_8',
-  'GRADE_9',
-  'GRADE_10',
-  'GRADE_11',
-  'GRADE_12'
+  'GRADE_6'
 ];
 
 const difficulties = [
   'All Levels',
-  'beginner',
-  'intermediate',
-  'advanced'
+  'BEGINNER',
+  'INTERMEDIATE',
+  'ADVANCED'
 ];
 
-// Helper function to format grade levels for display
-const formatGradeLevel = (gradeLevel: string) => {
-  if (gradeLevel === 'KINDERGARTEN') return 'Kindergarten';
-  if (gradeLevel.startsWith('GRADE_')) {
-    return `Grade ${gradeLevel.replace('GRADE_', '')}`;
-  }
-  return gradeLevel;
-};
-
-// Helper function to get age-appropriate display options for grade dropdown
-const getGradeLevelOptions = () => {
-  return gradeLevels.map(grade => ({
-    value: grade,
-    label: grade === 'All Grades' ? 'All Grades' : formatGradeLevel(grade)
-  }));
-};
-
-const getMockLessons = (): Lesson[] => [
-  // Elementary (K-5)
-  {
-    id: '1',
-    title: 'Counting to 10',
-    description: 'Learn to count from 1 to 10 with fun animals and colorful pictures!',
-    subject: 'Mathematics',
-    gradeLevel: 'KINDERGARTEN',
-    difficulty: 'beginner',
-    duration: 15,
-    thumbnail: '/images/counting-lesson.jpg',
-    isCompleted: false,
-    progress: 0,
-    rating: 4.9,
-    enrolledStudents: 245,
-    createdAt: new Date('2024-01-15'),
-    updatedAt: new Date('2024-01-20'),
-    tags: ['counting', 'numbers', 'kindergarten']
-  },
-  {
-    id: '2',
-    title: 'Introduction to Fractions',
-    description: 'Learn the basics of fractions with visual examples and interactive exercises.',
-    subject: 'Mathematics',
-    gradeLevel: 'GRADE_3',
-    difficulty: 'beginner',
-    duration: 30,
-    thumbnail: '/images/fractions-lesson.jpg',
-    isCompleted: false,
-    progress: 0,
-    rating: 4.8,
-    enrolledStudents: 156,
-    createdAt: new Date('2024-01-15'),
-    updatedAt: new Date('2024-01-20'),
-    tags: ['fractions', 'basic-math', 'visual-learning']
-  },
-  {
-    id: '3',
-    title: 'The Water Cycle',
-    description: 'Explore how water moves through our environment in this engaging science lesson.',
-    subject: 'Science',
-    gradeLevel: 'GRADE_4',
-    difficulty: 'intermediate',
-    duration: 45,
-    thumbnail: '/images/water-cycle-lesson.jpg',
-    isCompleted: true,
-    progress: 100,
-    rating: 4.9,
-    enrolledStudents: 203,
-    createdAt: new Date('2024-01-10'),
-    updatedAt: new Date('2024-01-18'),
-    tags: ['water-cycle', 'environment', 'earth-science']
-  },
-  // Middle School (6-8)
-  {
-    id: '4',
-    title: 'Algebraic Expressions',
-    description: 'Master the fundamentals of algebraic expressions and equation solving.',
-    subject: 'Mathematics',
-    gradeLevel: 'GRADE_7',
-    difficulty: 'intermediate',
-    duration: 50,
-    thumbnail: '/images/algebra-lesson.jpg',
-    isCompleted: false,
-    progress: 15,
-    rating: 4.6,
-    enrolledStudents: 178,
-    createdAt: new Date('2024-01-12'),
-    updatedAt: new Date('2024-01-19'),
-    tags: ['algebra', 'equations', 'middle-school']
-  },
-  {
-    id: '5',
-    title: 'Cell Structure and Function',
-    description: 'Dive deep into the microscopic world of cells and their amazing functions.',
-    subject: 'Biology',
-    gradeLevel: 'GRADE_8',
-    difficulty: 'intermediate',
-    duration: 55,
-    thumbnail: '/images/cell-biology-lesson.jpg',
-    isCompleted: false,
-    progress: 0,
-    rating: 4.7,
-    enrolledStudents: 134,
-    createdAt: new Date('2024-01-14'),
-    updatedAt: new Date('2024-01-21'),
-    tags: ['biology', 'cells', 'microscopy']
-  },
-  // High School (9-12)
-  {
-    id: '6',
-    title: 'Quadratic Functions',
-    description: 'Advanced study of quadratic functions, graphing, and real-world applications.',
-    subject: 'Algebra II',
-    gradeLevel: 'GRADE_10',
-    difficulty: 'advanced',
-    duration: 60,
-    thumbnail: '/images/quadratic-lesson.jpg',
-    isCompleted: false,
-    progress: 0,
-    rating: 4.5,
-    enrolledStudents: 92,
-    createdAt: new Date('2024-01-16'),
-    updatedAt: new Date('2024-01-22'),
-    tags: ['quadratic', 'functions', 'graphing', 'algebra']
-  },
-  {
-    id: '7',
-    title: 'Chemical Bonding',
-    description: 'Explore ionic and covalent bonds, molecular structures, and chemical properties.',
-    subject: 'Chemistry',
-    gradeLevel: 'GRADE_11',
-    difficulty: 'advanced',
-    duration: 65,
-    thumbnail: '/images/chemistry-lesson.jpg',
-    isCompleted: false,
-    progress: 0,
-    rating: 4.8,
-    enrolledStudents: 67,
-    createdAt: new Date('2024-01-17'),
-    updatedAt: new Date('2024-01-23'),
-    tags: ['chemistry', 'bonding', 'molecules', 'high-school']
-  },
-  {
-    id: '8',
-    title: 'AP Calculus: Derivatives',
-    description: 'Master derivative calculations and applications for AP Calculus success.',
-    subject: 'Calculus',
-    gradeLevel: 'GRADE_12',
-    difficulty: 'expert',
-    duration: 70,
-    thumbnail: '/images/calculus-lesson.jpg',
-    isCompleted: false,
-    progress: 0,
-    rating: 4.9,
-    enrolledStudents: 45,
-    createdAt: new Date('2024-01-18'),
-    updatedAt: new Date('2024-01-24'),
-    tags: ['calculus', 'derivatives', 'ap-prep', 'advanced-math']
-  }
-];
-
-export default function LessonsPage() {
+export default function QuizzesPage() {
   const { user } = useAuth();
-  const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('All Subjects');
@@ -244,70 +81,155 @@ export default function LessonsPage() {
   const isTeacher = user?.role === UserRole.TEACHER;
 
   useEffect(() => {
-    fetchLessons();
+    fetchQuizzes();
   }, [selectedSubject, selectedGrade, selectedDifficulty, searchTerm]);
 
-  const fetchLessons = async () => {
+  const fetchQuizzes = async () => {
     try {
       setLoading(true);
-      const params = new URLSearchParams();
+      
+      // Mock quiz data
+      const mockQuizzes: Quiz[] = [
+        {
+          id: '1',
+          title: 'Fractions Fundamentals',
+          description: 'Test your understanding of basic fraction concepts and operations.',
+          subject: 'MATHEMATICS',
+          gradeLevel: 'GRADE_4',
+          difficulty: 'BEGINNER',
+          questionCount: 10,
+          timeLimit: 15,
+          passingScore: 70,
+          tags: ['fractions', 'math', 'basics'],
+          createdBy: '1',
+          createdAt: new Date('2024-01-15'),
+          isPublished: true,
+          attempts: 2,
+          bestScore: 85,
+          completed: true
+        },
+        {
+          id: '2',
+          title: 'Water Cycle Quiz',
+          description: 'Assess your knowledge of the water cycle and its processes.',
+          subject: 'SCIENCE',
+          gradeLevel: 'GRADE_3',
+          difficulty: 'BEGINNER',
+          questionCount: 8,
+          timeLimit: 12,
+          passingScore: 75,
+          tags: ['water cycle', 'science', 'environment'],
+          createdBy: '1',
+          createdAt: new Date('2024-01-10'),
+          isPublished: true,
+          attempts: 1,
+          bestScore: 92,
+          completed: true
+        },
+        {
+          id: '3',
+          title: 'Grammar Basics',
+          description: 'Test your understanding of basic grammar rules and sentence structure.',
+          subject: 'ENGLISH',
+          gradeLevel: 'GRADE_5',
+          difficulty: 'INTERMEDIATE',
+          questionCount: 15,
+          timeLimit: 20,
+          passingScore: 80,
+          tags: ['grammar', 'english', 'writing'],
+          createdBy: '1',
+          createdAt: new Date('2024-01-05'),
+          isPublished: true,
+          attempts: 0,
+          completed: false
+        },
+        {
+          id: '4',
+          title: 'Multiplication Mastery',
+          description: 'Challenge yourself with multiplication problems and word problems.',
+          subject: 'MATHEMATICS',
+          gradeLevel: 'GRADE_3',
+          difficulty: 'INTERMEDIATE',
+          questionCount: 12,
+          timeLimit: 18,
+          passingScore: 75,
+          tags: ['multiplication', 'math', 'word problems'],
+          createdBy: '1',
+          createdAt: new Date('2024-01-08'),
+          isPublished: true,
+          attempts: 1,
+          bestScore: 67,
+          completed: false
+        }
+      ];
+
+      // Apply filters
+      let filteredQuizzes = mockQuizzes;
       
       if (selectedSubject !== 'All Subjects') {
-        params.append('subject', selectedSubject);
+        filteredQuizzes = filteredQuizzes.filter(quiz => quiz.subject === selectedSubject);
       }
+      
       if (selectedGrade !== 'All Grades') {
-        params.append('gradeLevel', selectedGrade);
+        filteredQuizzes = filteredQuizzes.filter(quiz => quiz.gradeLevel === selectedGrade);
       }
+      
+      if (selectedDifficulty !== 'All Levels') {
+        filteredQuizzes = filteredQuizzes.filter(quiz => quiz.difficulty === selectedDifficulty);
+      }
+      
       if (searchTerm) {
-        params.append('search', searchTerm);
-      }
-      if (isTeacher) {
-        params.append('createdBy', user?.id || '');
+        const searchLower = searchTerm.toLowerCase();
+        filteredQuizzes = filteredQuizzes.filter(quiz =>
+          quiz.title.toLowerCase().includes(searchLower) ||
+          quiz.description.toLowerCase().includes(searchLower) ||
+          quiz.tags.some(tag => tag.toLowerCase().includes(searchLower))
+        );
       }
 
-      const response = await fetch(`/api/lessons?${params.toString()}`);
-      const data = await response.json();
-
-      if (data.success) {
-        setLessons(data.data.lessons);
-      } else {
-        // Fallback to mock data
-        setLessons(getMockLessons());
-      }
+      setQuizzes(filteredQuizzes);
     } catch (error) {
-      console.error('Error fetching lessons:', error);
-      // Fallback to mock data when API fails
-      setLessons(getMockLessons());
+      console.error('Error fetching quizzes:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  const getDifficultyColor = (difficulty: string) => {
+  const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
-      case 'beginner':
+      case 'BEGINNER':
         return 'text-green-600 bg-green-100';
-      case 'intermediate':
+      case 'INTERMEDIATE':
         return 'text-yellow-600 bg-yellow-100';
-      case 'advanced':
+      case 'ADVANCED':
         return 'text-red-600 bg-red-100';
       default:
         return 'text-gray-600 bg-gray-100';
     }
   };
 
-  const getSubjectColor = (subject: string) => {
+  const getSubjectColor = (subject) => {
     switch (subject) {
-      case 'Mathematics':
+      case 'MATHEMATICS':
         return 'text-blue-600 bg-blue-100';
-      case 'Science':
+      case 'SCIENCE':
         return 'text-green-600 bg-green-100';
-      case 'English':
+      case 'ENGLISH':
         return 'text-purple-600 bg-purple-100';
-      case 'History':
+      case 'HISTORY':
         return 'text-orange-600 bg-orange-100';
       default:
         return 'text-gray-600 bg-gray-100';
+    }
+  };
+
+  const getScoreColor = (score: number, passingScore: number) => {
+    if (score >= passingScore) {
+      return 'text-green-600';
+    } else if (score >= passingScore * 0.8) {
+      return 'text-yellow-600';
+    } else {
+      return 'text-red-600';
     }
   };
 
@@ -318,20 +240,20 @@ export default function LessonsPage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              {isTeacher ? 'My Lessons' : 'Lessons'}
+              {isTeacher ? 'My Quizzes' : 'Quizzes'}
             </h1>
             <p className="text-gray-600">
               {isTeacher 
-                ? 'Create and manage your educational content'
-                : 'Explore engaging lessons tailored to your learning journey'
+                ? 'Create and manage your assessments'
+                : 'Test your knowledge with interactive quizzes'
               }
             </p>
           </div>
           {isTeacher && (
-            <Link href="/lessons/create">
+            <Link href="/quizzes/create">
               <Button className="mt-4 sm:mt-0">
                 <PlusIcon className="mr-2 h-5 w-5" />
-                Create Lesson
+                Create Quiz
               </Button>
             </Link>
           )}
@@ -346,7 +268,7 @@ export default function LessonsPage() {
                 <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search lessons..."
+                  placeholder="Search quizzes..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -388,8 +310,8 @@ export default function LessonsPage() {
                     onChange={(e) => setSelectedGrade(e.target.value)}
                     className="px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white min-w-[120px]"
                   >
-                    {getGradeLevelOptions().map(grade => (
-                      <option key={grade.value} value={grade.value}>{grade.label}</option>
+                    {gradeLevels.map(grade => (
+                      <option key={grade} value={grade}>{grade}</option>
                     ))}
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -450,8 +372,8 @@ export default function LessonsPage() {
                       onChange={(e) => setSelectedGrade(e.target.value)}
                       className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white"
                     >
-                      {getGradeLevelOptions().map(grade => (
-                        <option key={grade.value} value={grade.value}>{grade.label}</option>
+                      {gradeLevels.map(grade => (
+                        <option key={grade} value={grade}>{grade}</option>
                       ))}
                     </select>
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -483,7 +405,7 @@ export default function LessonsPage() {
           </div>
         </Card>
 
-        {/* Lessons Grid */}
+        {/* Quizzes Grid */}
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, index) => (
@@ -501,75 +423,119 @@ export default function LessonsPage() {
               </Card>
             ))}
           </div>
-        ) : lessons.length === 0 ? (
+        ) : quizzes.length === 0 ? (
           <Card className="text-center py-12">
-            <BookOpenIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No lessons found</h3>
+            <QuestionMarkCircleIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">No quizzes found</h3>
             <p className="text-gray-600 mb-6">
               {isTeacher 
-                ? "You haven't created any lessons yet. Start by creating your first lesson!"
-                : "No lessons match your current filters. Try adjusting your search criteria."
+                ? "You haven't created any quizzes yet. Start by creating your first quiz!"
+                : "No quizzes match your current filters. Try adjusting your search criteria."
               }
             </p>
             {isTeacher && (
-              <Link href="/lessons/create">
+              <Link href="/quizzes/create">
                 <Button>
                   <PlusIcon className="mr-2 h-5 w-5" />
-                  Create Your First Lesson
+                  Create Your First Quiz
                 </Button>
               </Link>
             )}
           </Card>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {lessons.map((lesson) => (
+            {quizzes.map((quiz) => (
               <motion.div
-                key={lesson.id}
+                key={quiz.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.2 }}
               >
                 <Card className="h-full hover:shadow-lg transition-shadow duration-200">
-                  {/* Lesson Thumbnail */}
-                  <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 rounded-t-lg relative overflow-hidden">
+                  {/* Quiz Header */}
+                  <div className="h-48 bg-gradient-to-br from-purple-500 to-blue-600 rounded-t-lg relative overflow-hidden">
                     <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-                    <div className="absolute bottom-4 left-4 right-4">
+                    <div className="absolute top-4 left-4 right-4">
                       <div className="flex items-center justify-between">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getSubjectColor(lesson.subject)}`}>
-                          {lesson.subject}
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getSubjectColor(quiz.subject)}`}>
+                          {quiz.subject}
                         </span>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(lesson.difficulty)}`}>
-                          {lesson.difficulty}
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(quiz.difficulty)}`}>
+                          {quiz.difficulty}
                         </span>
+                      </div>
+                    </div>
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="flex items-center justify-between text-white">
+                        <div className="flex items-center">
+                          <QuestionMarkCircleIcon className="h-4 w-4 mr-1" />
+                          <span className="text-sm">{quiz.questionCount} questions</span>
+                        </div>
+                        {quiz.timeLimit && (
+                          <div className="flex items-center">
+                            <ClockIcon className="h-4 w-4 mr-1" />
+                            <span className="text-sm">{quiz.timeLimit} min</span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
 
-                  {/* Lesson Content */}
+                  {/* Quiz Content */}
                   <div className="p-6 flex flex-col flex-1">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-                      {lesson.title}
+                      {quiz.title}
                     </h3>
                     <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-1">
-                      {lesson.description}
+                      {quiz.description}
                     </p>
 
-                    {/* Lesson Meta */}
+                    {/* Quiz Meta */}
                     <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
                       <div className="flex items-center">
-                        <ClockIcon className="h-4 w-4 mr-1" />
-                        {lesson.duration} min
+                        <AcademicCapIcon className="h-4 w-4 mr-1" />
+                        {quiz.gradeLevel.replace('GRADE_', 'Grade ')}
                       </div>
                       <div className="flex items-center">
-                        <AcademicCapIcon className="h-4 w-4 mr-1" />
-                        {formatGradeLevel(lesson.gradeLevel)}
+                        <TrophyIcon className="h-4 w-4 mr-1" />
+                        {quiz.passingScore}% to pass
                       </div>
                     </div>
 
+                    {/* Student Progress */}
+                    {!isTeacher && (
+                      <div className="mb-4">
+                        {quiz.completed ? (
+                          <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                            <div className="flex items-center">
+                              <CheckCircleIcon className="h-5 w-5 text-green-500 mr-2" />
+                              <span className="text-sm font-medium text-green-700">Completed</span>
+                            </div>
+                            <span className={`text-sm font-bold ${getScoreColor(quiz.bestScore!, quiz.passingScore)}`}>
+                              {quiz.bestScore}%
+                            </span>
+                          </div>
+                        ) : quiz.attempts && quiz.attempts > 0 ? (
+                          <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                            <span className="text-sm font-medium text-yellow-700">
+                              {quiz.attempts} attempt{quiz.attempts > 1 ? 's' : ''}
+                            </span>
+                            <span className={`text-sm font-bold ${getScoreColor(quiz.bestScore!, quiz.passingScore)}`}>
+                              Best: {quiz.bestScore}%
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="p-3 bg-blue-50 rounded-lg">
+                            <span className="text-sm font-medium text-blue-700">Not started</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {lesson.tags.slice(0, 3).map((tag) => (
+                      {quiz.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
                           className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full"
@@ -577,18 +543,18 @@ export default function LessonsPage() {
                           {tag}
                         </span>
                       ))}
-                      {lesson.tags.length > 3 && (
+                      {quiz.tags.length > 3 && (
                         <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
-                          +{lesson.tags.length - 3} more
+                          +{quiz.tags.length - 3} more
                         </span>
                       )}
                     </div>
 
                     {/* Action Button */}
-                    <Link href={`/lessons/${lesson.id}`}>
+                    <Link href={`/quizzes/${quiz.id}`}>
                       <Button fullWidth className="group">
                         <PlayIcon className="mr-2 h-4 w-4" />
-                        {isTeacher ? 'Edit Lesson' : 'Start Lesson'}
+                        {isTeacher ? 'Manage Quiz' : 'Take Quiz'}
                         <ChevronRightIcon className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       </Button>
                     </Link>

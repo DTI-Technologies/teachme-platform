@@ -46,7 +46,7 @@ export default function ClassDetailPage() {
       setLoading(true);
       
       // Mock class details data
-      const mockClassData: ClassDetails = {
+      const mockClassData = {
         id: classId,
         name: 'Advanced Mathematics',
         description: 'Algebra, Geometry, and Calculus for Grade 10',
@@ -150,7 +150,7 @@ export default function ClassDetailPage() {
     }
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status) => {
     switch (status) {
       case 'active':
         return 'text-green-600 bg-green-100';
@@ -163,13 +163,13 @@ export default function ClassDetailPage() {
     }
   };
 
-  const getProgressColor = (progress: number) => {
+  const getProgressColor = (progress) => {
     if (progress >= 80) return 'text-green-600';
     if (progress >= 60) return 'text-yellow-600';
     return 'text-red-600';
   };
 
-  const formatDate = (date: Date) => {
+  const formatDate = (date) => {
     return new Intl.DateTimeFormat('en-US', {
       month: 'short',
       day: 'numeric',

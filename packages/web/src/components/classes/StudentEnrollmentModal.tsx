@@ -14,21 +14,25 @@ import {
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 
-interface StudentEnrollmentModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  classId: string;
-  className: string;
-  onEnrollmentComplete: () => void;
-}
+// JavaScript doesn't need interface definitions - using JSDoc for documentation
 
-interface Student {
-  id: string;
-  name: string;
-  email: string;
-  avatar: string;
-  isEnrolled: boolean;
-}
+/**
+ * @typedef {Object} StudentEnrollmentModalProps
+ * @property {boolean} isOpen
+ * @property {function} onClose
+ * @property {string} classId
+ * @property {string} className
+ * @property {function} onEnrollmentComplete
+ */
+
+/**
+ * @typedef {Object} Student
+ * @property {string} id
+ * @property {string} name
+ * @property {string} email
+ * @property {string} avatar
+ * @property {boolean} isEnrolled
+ */
 
 export default function StudentEnrollmentModal({
   isOpen,
@@ -36,15 +40,15 @@ export default function StudentEnrollmentModal({
   classId,
   className,
   onEnrollmentComplete
-}: StudentEnrollmentModalProps) {
-  const [enrollmentMethod, setEnrollmentMethod] = useState<'search' | 'invite' | 'bulk'>('search');
+}) {
+  const [enrollmentMethod, setEnrollmentMethod] = useState('search');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
+  const [selectedStudents, setSelectedStudents] = useState([]);
   const [inviteEmails, setInviteEmails] = useState('');
   const [loading, setLoading] = useState(false);
 
   // Mock student data
-  const [availableStudents] = useState<Student[]>([
+  const [availableStudents] = useState([
     {
       id: '1',
       name: 'Emma Wilson',
@@ -87,7 +91,7 @@ export default function StudentEnrollmentModal({
     student.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const toggleStudentSelection = (studentId: string) => {
+  const toggleStudentSelection = (studentId) => {
     setSelectedStudents(prev =>
       prev.includes(studentId)
         ? prev.filter(id => id !== studentId)

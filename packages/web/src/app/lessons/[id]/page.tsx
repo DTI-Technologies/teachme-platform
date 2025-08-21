@@ -13,9 +13,9 @@ import {
   DocumentTextIcon,
   QuestionMarkCircleIcon,
   ArrowLeftIcon,
-  StarIcon
+  StarIcon as StarOutlineIcon
 } from '@heroicons/react/24/outline';
-import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
+import { StarIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '@/hooks/useAuth';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -23,71 +23,71 @@ import DashboardLayout from '@/components/layout/DashboardLayout';
 import { UserRole } from '@/types';
 import Link from 'next/link';
 
-interface LessonDetail {
-  id: string;
-  title: string;
-  description: string;
-  subject: string;
-  gradeLevel: string;
-  duration: number;
-  difficulty: string;
-  objectives: string[];
-  content: {
-    introduction: string;
-    mainContent: ContentBlock[];
-    conclusion: string;
-    vocabulary: VocabularyTerm[];
-  };
-  activities: Activity[];
-  assessments: Assessment[];
-  resources: Resource[];
-  tags: string[];
-  createdBy: string;
-  createdAt: Date;
-  updatedAt: Date;
-  isPublic: boolean;
-}
+// interface LessonDetail {
+//   id: string;
+//   title: string;
+//   description: string;
+//   subject: string;
+//   gradeLevel: string;
+//   duration: number;
+//   difficulty: string;
+//   objectives: string[];
+//   content: {
+//     introduction: string;
+//     mainContent: ContentBlock[];
+//     conclusion: string;
+//     vocabulary: VocabularyTerm[];
+//   };
+//   activities: Activity[];
+//   assessments: Assessment[];
+//   resources: Resource[];
+//   tags: string[];
+//   createdBy: string;
+//   createdAt: Date;
+//   updatedAt: Date;
+//   isPublic: boolean;
+// }
 
-interface ContentBlock {
-  id: string;
-  type: string;
-  content: string;
-  order: number;
-  metadata?: any;
-}
+// interface ContentBlock {
+//   id: string;
+//   type: string;
+//   content: string;
+//   order: number;
+//   metadata?: any;
+// }
 
-interface VocabularyTerm {
-  term: string;
-  definition: string;
-  examples: string[];
-}
+// interface VocabularyTerm {
+//   term: string;
+//   definition: string;
+//   examples: string[];
+// }
 
-interface Activity {
-  id: string;
-  name: string;
-  type: string;
-  description: string;
-  instructions: string;
-  estimatedTime: number;
-  materials: string[];
-}
+// interface Activity {
+//   id: string;
+//   name: string;
+//   type: string;
+//   description: string;
+//   instructions: string;
+//   estimatedTime: number;
+//   materials: string[];
+// }
 
-interface Assessment {
-  id: string;
-  title: string;
-  type: string;
-  questions: any[];
-  timeLimit: number;
-  attempts: number;
-  passingScore: number;
-}
+// interface Assessment {
+//   id: string;
+//   title: string;
+//   type: string;
+//   questions: any[];
+//   timeLimit: number;
+//   attempts: number;
+//   passingScore: number;
+// }
 
-interface Resource {
-  id: string;
-  name: string;
-  type: string;
-  url: string;
-}
+// interface Resource {
+//   id: string;
+//   name: string;
+//   type: string;
+//   url: string;
+// }
 
 export default function LessonDetailPage() {
   const params = useParams();
@@ -97,7 +97,7 @@ export default function LessonDetailPage() {
   const [activeTab, setActiveTab] = useState('overview');
 
   const isTeacher = user?.role === UserRole.TEACHER;
-  const lessonId = params.id as string;
+  const lessonId = params.id;
 
   useEffect(() => {
     if (lessonId) {
@@ -121,7 +121,7 @@ export default function LessonDetailPage() {
     }
   };
 
-  const getDifficultyColor = (difficulty: string) => {
+  const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
       case 'beginner':
         return 'text-green-600 bg-green-100';
@@ -134,7 +134,7 @@ export default function LessonDetailPage() {
     }
   };
 
-  const getSubjectColor = (subject: string) => {
+  const getSubjectColor = (subject) => {
     switch (subject) {
       case 'Mathematics':
         return 'text-blue-600 bg-blue-100';

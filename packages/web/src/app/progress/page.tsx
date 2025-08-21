@@ -10,11 +10,11 @@ import {
   BookOpenIcon,
   CheckCircleIcon,
   PlayIcon,
-  StarIcon,
+  StarIcon as StarOutlineIcon,
   CalendarIcon,
   AcademicCapIcon
 } from '@heroicons/react/24/outline';
-import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
+import { StarIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '@/hooks/useAuth';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -22,45 +22,45 @@ import DashboardLayout from '@/components/layout/DashboardLayout';
 import { UserRole } from '@/types';
 import Link from 'next/link';
 
-interface ProgressData {
-  overallProgress: {
-    totalLessons: number;
-    completedLessons: number;
-    inProgressLessons: number;
-    totalTimeSpent: number;
-    averageScore: number;
-    streak: number;
-    xpEarned: number;
-  };
-  lessonProgress: Array<{
-    lessonId: string;
-    lessonTitle: string;
-    status: string;
-    progress: number;
-    timeSpent: number;
-    score?: number;
-    completedAt?: Date;
-    modules: Array<{
-      id: string;
-      title: string;
-      completed: boolean;
-      timeSpent: number;
-    }>;
-  }>;
-  recentActivity: Array<{
-    type: string;
-    lessonTitle: string;
-    timestamp: Date;
-    score?: number;
-  }>;
-  achievements: Array<{
-    id: string;
-    title: string;
-    description: string;
-    earnedAt: Date;
-    icon: string;
-  }>;
-}
+// interface ProgressData {
+//   overallProgress: {
+//     totalLessons: number;
+//     completedLessons: number;
+//     inProgressLessons: number;
+//     totalTimeSpent: number;
+//     averageScore: number;
+//     streak: number;
+//     xpEarned: number;
+//   };
+//   lessonProgress: Array<{
+//     lessonId: string;
+//     lessonTitle: string;
+//     status: string;
+//     progress: number;
+//     timeSpent: number;
+//     score?: number;
+//     completedAt?: Date;
+//     modules: Array<{
+//       id: string;
+//       title: string;
+//       completed: boolean;
+//       timeSpent: number;
+//     }>;
+//   }>;
+//   recentActivity: Array<{
+//     type: string;
+//     lessonTitle: string;
+//     timestamp: Date;
+//     score?: number;
+//   }>;
+//   achievements: Array<{
+//     id: string;
+//     title: string;
+//     description: string;
+//     earnedAt: Date;
+//     icon: string;
+//   }>;
+// }
 
 export default function ProgressPage() {
   const { user } = useAuth();
@@ -92,7 +92,7 @@ export default function ProgressPage() {
     }
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status) => {
     switch (status) {
       case 'completed':
         return 'text-green-600 bg-green-100';
@@ -105,7 +105,7 @@ export default function ProgressPage() {
     }
   };
 
-  const formatTime = (minutes: number) => {
+  const formatTime = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     if (hours > 0) {

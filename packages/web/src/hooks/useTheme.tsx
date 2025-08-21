@@ -22,8 +22,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Load theme from localStorage or system preference
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    const savedAgeTheme = localStorage.getItem('ageTheme') as AgeTheme;
+    const savedTheme = localStorage.getItem('theme');
+    const savedAgeTheme = localStorage.getItem('ageTheme');
     
     if (savedTheme) {
       setThemeState(savedTheme);

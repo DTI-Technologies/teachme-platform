@@ -21,34 +21,34 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 
-interface StudentProgress {
-  id: string;
-  name: string;
-  email: string;
-  avatar: string;
-  class: string;
-  classId: string;
-  overallProgress: number;
-  lessonsCompleted: number;
-  totalLessons: number;
-  quizzesCompleted: number;
-  totalQuizzes: number;
-  averageScore: number;
-  lastActive: Date;
-  status: 'excellent' | 'good' | 'struggling' | 'inactive';
-  recentActivity: string;
-  timeSpent: number; // in minutes
-  streak: number;
-  achievements: number;
-}
+// interface StudentProgress {
+//   id: string;
+//   name: string;
+//   email: string;
+//   avatar: string;
+//   class: string;
+//   classId: string;
+//   overallProgress: number;
+//   lessonsCompleted: number;
+//   totalLessons: number;
+//   quizzesCompleted: number;
+//   totalQuizzes: number;
+//   averageScore: number;
+//   lastActive: Date;
+//   status: 'excellent' | 'good' | 'struggling' | 'inactive';
+//   recentActivity: string;
+//   timeSpent: number; // in minutes
+//   streak: number;
+//   achievements: number;
+// }
 
 export default function StudentsPage() {
   const { user } = useAuth();
   const [students, setStudents] = useState<StudentProgress[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [classFilter, setClassFilter] = useState<string>('all');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [classFilter, setClassFilter] = useState('all');
 
   useEffect(() => {
     if (user?.id) {
@@ -197,7 +197,7 @@ export default function StudentsPage() {
     }
   ];
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status) => {
     switch (status) {
       case 'excellent':
         return 'text-green-700 bg-green-100 border-green-200';
@@ -212,7 +212,7 @@ export default function StudentsPage() {
     }
   };
 
-  const getStatusIcon = (status: string) => {
+  const getStatusIcon = (status) => {
     switch (status) {
       case 'excellent':
         return <TrophyIcon className="h-4 w-4" />;
@@ -227,13 +227,13 @@ export default function StudentsPage() {
     }
   };
 
-  const getProgressColor = (progress: number) => {
+  const getProgressColor = (progress) => {
     if (progress >= 80) return 'text-green-600';
     if (progress >= 60) return 'text-yellow-600';
     return 'text-red-600';
   };
 
-  const formatTime = (minutes: number) => {
+  const formatTime = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     if (hours > 0) {
@@ -242,7 +242,7 @@ export default function StudentsPage() {
     return `${mins}m`;
   };
 
-  const formatLastActive = (date: Date) => {
+  const formatLastActive = (date) => {
     const now = new Date();
     const diffTime = Math.abs(now.getTime() - date.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));

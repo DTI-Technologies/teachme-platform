@@ -12,25 +12,25 @@ import {
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 
-interface CreateClassModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSubmit: (classData: ClassFormData) => void;
-}
+// interface CreateClassModalProps {
+//   isOpen: boolean;
+//   onClose: () => void;
+//   onSubmit: (classData) => void;
+// }
 
-interface ClassFormData {
-  name: string;
-  description: string;
-  subject: string;
-  gradeLevel: string;
-  schedule: {
-    days: string[];
-    startTime: string;
-    endTime: string;
-  };
-  maxStudents: number;
-  isPublic: boolean;
-}
+// interface ClassFormData {
+//   name: string;
+//   description: string;
+//   subject: string;
+//   gradeLevel: string;
+//   schedule: {
+//     days: string[];
+//     startTime: string;
+//     endTime: string;
+//   };
+//   maxStudents: number;
+//   isPublic: boolean;
+// }
 
 const subjects = [
   { value: 'MATHEMATICS', label: 'Mathematics', icon: '🧮' },
@@ -68,8 +68,8 @@ const weekDays = [
   { value: 'friday', label: 'Fri' },
 ];
 
-export default function CreateClassModal({ isOpen, onClose, onSubmit }: CreateClassModalProps) {
-  const [formData, setFormData] = useState<ClassFormData>({
+export default function CreateClassModal({ isOpen, onClose, onSubmit }) {
+  const [formData, setFormData] = useState({
     name: '',
     description: '',
     subject: '',
@@ -84,9 +84,9 @@ export default function CreateClassModal({ isOpen, onClose, onSubmit }: CreateCl
   });
 
   const [currentStep, setCurrentStep] = useState(1);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState({});
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = (field, value) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -101,7 +101,7 @@ export default function CreateClassModal({ isOpen, onClose, onSubmit }: CreateCl
     }
   };
 
-  const handleScheduleChange = (field: string, value: any) => {
+  const handleScheduleChange = (field, value) => {
     setFormData(prev => ({
       ...prev,
       schedule: {
@@ -111,7 +111,7 @@ export default function CreateClassModal({ isOpen, onClose, onSubmit }: CreateCl
     }));
   };
 
-  const toggleDay = (day: string) => {
+  const toggleDay = (day) => {
     const currentDays = formData.schedule.days;
     const newDays = currentDays.includes(day)
       ? currentDays.filter(d => d !== day)
@@ -120,8 +120,8 @@ export default function CreateClassModal({ isOpen, onClose, onSubmit }: CreateCl
     handleScheduleChange('days', newDays);
   };
 
-  const validateStep = (step: number) => {
-    const newErrors: Record<string, string> = {};
+  const validateStep = (step) => {
+    const newErrors = {};
 
     if (step === 1) {
       if (!formData.name.trim()) newErrors.name = 'Class name is required';

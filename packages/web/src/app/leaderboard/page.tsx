@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
-  TrophyIcon,
+  TrophyIcon as TrophyOutlineIcon,
   FireIcon,
-  StarIcon,
+  StarIcon as StarOutlineIcon,
   ChartBarIcon,
   UsersIcon,
   ClockIcon,
@@ -14,33 +14,33 @@ import {
   ChevronDownIcon,
   MinusIcon
 } from '@heroicons/react/24/outline';
-import { TrophyIcon as TrophyIconSolid, StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
+import { TrophyIcon, StarIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '@/hooks/useAuth';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 
-interface LeaderboardEntry {
-  rank: number;
-  studentId: string;
-  displayName: string;
-  avatar: string;
-  score: number;
-  level: number;
-  badge?: string;
-  change: {
-    direction: 'up' | 'down' | 'same' | 'new';
-    positions: number;
-  };
-}
+// interface LeaderboardEntry {
+//   rank: number;
+//   studentId: string;
+//   displayName: string;
+//   avatar: string;
+//   score: number;
+//   level: number;
+//   badge?: string;
+//   change: {
+//     direction: 'up' | 'down' | 'same' | 'new';
+//     positions: number;
+//   };
+// }
 
-interface Leaderboard {
-  type: string;
-  scope: string;
-  timeframe: string;
-  entries: LeaderboardEntry[];
-  lastUpdated: Date;
-}
+// interface Leaderboard {
+//   type: string;
+//   scope: string;
+//   timeframe: string;
+//   entries: LeaderboardEntry[];
+//   lastUpdated: Date;
+// }
 
 const leaderboardTypes = [
   { id: 'XP', name: 'Experience Points', icon: StarIcon },
@@ -78,7 +78,7 @@ export default function LeaderboardPage() {
       setLoading(true);
       
       // Mock leaderboard data
-      const mockLeaderboard: Leaderboard = {
+      const mockLeaderboard = {
         type: selectedType,
         scope: selectedScope,
         timeframe: selectedTimeframe,
@@ -170,7 +170,7 @@ export default function LeaderboardPage() {
     }
   };
 
-  const getRankIcon = (rank: number) => {
+  const getRankIcon = (rank) => {
     switch (rank) {
       case 1:
         return <TrophyIconSolid className="h-6 w-6 text-yellow-500" />;
@@ -183,7 +183,7 @@ export default function LeaderboardPage() {
     }
   };
 
-  const getChangeIcon = (change: LeaderboardEntry['change']) => {
+  const getChangeIcon = (change) => {
     switch (change.direction) {
       case 'up':
         return <ChevronUpIcon className="h-4 w-4 text-green-500" />;
@@ -196,7 +196,7 @@ export default function LeaderboardPage() {
     }
   };
 
-  const getScoreLabel = (type: string) => {
+  const getScoreLabel = (type) => {
     switch (type) {
       case 'XP':
         return 'XP';
@@ -349,22 +349,22 @@ export default function LeaderboardPage() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center space-x-2">
-                    {getRankIcon(getCurrentUserEntry()!.rank)}
+                    {getRankIcon(getCurrentUserEntry().rank)}
                     <span className="font-semibold text-gray-900">Your Rank</span>
                   </div>
-                  <div className="text-2xl">{getCurrentUserEntry()!.avatar}</div>
+                  <div className="text-2xl">{getCurrentUserEntry().avatar}</div>
                   <div>
-                    <div className="font-medium text-gray-900">{getCurrentUserEntry()!.displayName}</div>
-                    <div className="text-sm text-gray-600">Level {getCurrentUserEntry()!.level}</div>
+                    <div className="font-medium text-gray-900">{getCurrentUserEntry().displayName}</div>
+                    <div className="text-sm text-gray-600">Level {getCurrentUserEntry().level}</div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
                   <div className="text-right">
                     <div className="text-lg font-bold text-gray-900">
-                      {getCurrentUserEntry()!.score} {getScoreLabel(selectedType)}
+                      {getCurrentUserEntry().score} {getScoreLabel(selectedType)}
                     </div>
                     <div className="flex items-center text-sm text-gray-600">
-                      {getChangeIcon(getCurrentUserEntry()!.change)}
+                      {getChangeIcon(getCurrentUserEntry().change)}
                       <span className="ml-1">
                         {getCurrentUserEntry()!.change.direction === 'new' ? 'New' : 
                          getCurrentUserEntry()!.change.direction === 'same' ? 'No change' :

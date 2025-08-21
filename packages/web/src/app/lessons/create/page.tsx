@@ -23,18 +23,18 @@ import DashboardLayout from '@/components/layout/DashboardLayout';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-interface LessonContent {
-  id: string;
-  type: 'text' | 'video' | 'image' | 'interactive' | 'quiz';
-  title: string;
-  content: string;
-  order: number;
-}
+// interface LessonContent {
+//   id: string;
+//   type: 'text' | 'video' | 'image' | 'interactive' | 'quiz';
+//   title: string;
+//   content: string;
+//   order: number;
+// }
 
-interface LessonObjective {
-  id: string;
-  text: string;
-}
+// interface LessonObjective {
+//   id: string;
+//   text: string;
+// }
 
 const subjects = [
   'Mathematics',
@@ -68,7 +68,7 @@ const difficulties = [
 ];
 
 // Helper function to format grade levels for display
-const formatGradeLevel = (gradeLevel: string) => {
+const formatGradeLevel = (gradeLevel) => {
   if (gradeLevel === 'KINDERGARTEN') return 'Kindergarten';
   if (gradeLevel.startsWith('GRADE_')) {
     return `Grade ${gradeLevel.replace('GRADE_', '')}`;
@@ -98,38 +98,38 @@ export default function CreateLessonPage() {
     tags: ''
   });
 
-  const [objectives, setObjectives] = useState<LessonObjective[]>([
+  const [objectives, setObjectives] = useState([
     { id: '1', text: '' }
   ]);
 
-  const [content, setContent] = useState<LessonContent[]>([]);
+  const [content, setContent] = useState([]);
   const [isGeneratingWithAI, setIsGeneratingWithAI] = useState(false);
   const [saving, setSaving] = useState(false);
 
   const addObjective = () => {
-    const newObjective: LessonObjective = {
+    const newObjective = {
       id: Date.now().toString(),
       text: ''
     };
     setObjectives([...objectives, newObjective]);
   };
 
-  const updateObjective = (id: string, text: string) => {
+  const updateObjective = (id, text) => {
     setObjectives(objectives.map(obj => 
       obj.id === id ? { ...obj, text } : obj
     ));
   };
 
-  const removeObjective = (id: string) => {
+  const removeObjective = (id) => {
     if (objectives.length > 1) {
       setObjectives(objectives.filter(obj => obj.id !== id));
     }
   };
 
-  const addContent = (type: string) => {
-    const newContent: LessonContent = {
+  const addContent = (type) => {
+    const newContent = {
       id: Date.now().toString(),
-      type: type as any,
+      type: type,
       title: '',
       content: '',
       order: content.length
@@ -137,13 +137,13 @@ export default function CreateLessonPage() {
     setContent([...content, newContent]);
   };
 
-  const updateContent = (id: string, field: string, value: string) => {
+  const updateContent = (id, field, value) => {
     setContent(content.map(item => 
       item.id === id ? { ...item, [field]: value } : item
     ));
   };
 
-  const removeContent = (id: string) => {
+  const removeContent = (id) => {
     setContent(content.filter(item => item.id !== id));
   };
 
@@ -206,7 +206,7 @@ export default function CreateLessonPage() {
           });
         });
 
-        // Add activities as interactive content
+        // Add activities content
         structuredLesson.activities.forEach((activity, index) => {
           newContent.push({
             id: `activity_${Date.now()}_${index}`,
@@ -232,7 +232,7 @@ export default function CreateLessonPage() {
         setContent([...content, ...newContent]);
 
         // Show success message
-        alert(`Generated ${newContent.length} content sections! Review and edit as needed.`);
+        alert(`Generated ${newContent.length} content sections! Review and edit.`);
       }
     } catch (error) {
       console.error('Error generating AI content:', error);

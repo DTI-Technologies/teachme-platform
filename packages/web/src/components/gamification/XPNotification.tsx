@@ -8,24 +8,24 @@ import {
   FireIcon,
   SparklesIcon
 } from '@heroicons/react/24/outline';
-import { StarIcon as StarIconSolid, TrophyIcon as TrophyIconSolid } from '@heroicons/react/24/solid';
+import { StarIcon, TrophyIcon } from '@heroicons/react/24/solid';
 
-interface XPNotificationProps {
-  show: boolean;
-  amount: number;
-  source: string;
-  description: string;
-  levelUp?: {
-    newLevel: number;
-    oldLevel: number;
-  };
-  achievements?: Array<{
-    name: string;
-    icon: string;
-    description: string;
-  }>;
-  onClose: () => void;
-}
+// interface XPNotificationProps {
+//   show: boolean;
+//   amount: number;
+//   source: string;
+//   description: string;
+//   levelUp?: {
+//     newLevel: number;
+//     oldLevel: number;
+//   };
+//   achievements?: Array<{
+//     name: string;
+//     icon: string;
+//     description: string;
+//   }>;
+//   onClose: () => void;
+// }
 
 export default function XPNotification({
   show,
